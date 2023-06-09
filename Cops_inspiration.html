@@ -23,7 +23,6 @@
         c.fillStyle = "#1c1e1e";
         c.fillRect(0, 0, canvas.width, canvas.height);
 
-        let maxRadius = 50;
         let radii = [3, 2, 1];
         let mouse = {
             x: undefined,
@@ -46,7 +45,8 @@
         let noOfDots = window.innerWidth/10;
         let farDist = 120;
         let speedFactor = 0.6;
-        let repelRadius = window.innerWidth/8;
+
+        let repelRadius = window.innerWidth/7;
 
         function Circle(x, y, r, dx, dy, quad) {
             this.x = x;
@@ -65,12 +65,6 @@
             };
 
             this.update = () => {
-                // if (this.x >= innerWidth + 2 * r || this.x <= -2 * r) {
-                //     this.dx = this.dx * -1;
-                // }
-                // if (this.y >= innerHeight + 2 * r || this.y <= -2 * r) {
-                //     this.dy = this.dy * -1;
-                // }
 
                 if(this.x >= innerWidth + 0.5*r ) {
                     if(this.dx >=0) {
