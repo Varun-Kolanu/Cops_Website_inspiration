@@ -46,7 +46,7 @@
         let noOfDots = window.innerWidth/10;
         let farDist = 120;
         let speedFactor = 0.6;
-        let repelRadius = 200;
+        let repelRadius = window.innerWidth/8;
 
         function Circle(x, y, r, dx, dy, quad) {
             this.x = x;
@@ -65,11 +65,32 @@
             };
 
             this.update = () => {
-                if (this.x >= innerWidth + 2 * r || this.x <= -2 * r) {
-                    this.dx = this.dx * -1;
+                // if (this.x >= innerWidth + 2 * r || this.x <= -2 * r) {
+                //     this.dx = this.dx * -1;
+                // }
+                // if (this.y >= innerHeight + 2 * r || this.y <= -2 * r) {
+                //     this.dy = this.dy * -1;
+                // }
+
+                if(this.x >= innerWidth + 0.5*r ) {
+                    if(this.dx >=0) {
+                        this.dx = this.dx * -1;
+                    }
                 }
-                if (this.y >= innerHeight + 2 * r || this.y <= -2 * r) {
-                    this.dy = this.dy * -1;
+                else if(this.x <= -0.5*r ) {
+                    if(this.dx <= 0) {
+                        this.dx = this.dx * -1;
+                    }
+                }
+                if(this.y >= innerHeight + 0.5*r ) {
+                    if(this.dy >=0) {
+                        this.dy = this.dy * -1;
+                    }
+                }
+                else if(this.y <= -0.5*r ) {
+                    if(this.dy <=0) {
+                        this.dy = this.dy * -1;
+                    }
                 }
 
                 if (quad == 0) {
