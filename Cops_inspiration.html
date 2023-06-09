@@ -41,12 +41,11 @@
         })
 
         let dotcolor = 'white';
-        let linecolor = "white";
-        let noOfDots = Math.floor(window.innerWidth/5);
+        let noOfDots = Math.floor(window.innerWidth/10);
         let farDist = 120;
         let speedFactor = 0.6;
 
-        let repelRadius = 200;
+        let repelRadius = window.innerWidth / 7;
 
         function Circle(x, y, r, dx, dy, quad) {
             this.x = x;
@@ -66,25 +65,21 @@
 
             this.update = () => {
 
-                if(this.x >= innerWidth + 0.5*r ) {
-                    if(this.dx >=0) {
-                        this.dx = this.dx * -1;
-                    }
+                if(this.x > innerWidth + 2*r) {
+                    this.x = innerWidth - r;
+                    this.dx *= -1;
                 }
-                else if(this.x <= -0.5*r ) {
-                    if(this.dx <= 0) {
-                        this.dx = this.dx * -1;
-                    }
+                else if(this.x < -r) {
+                    this.x = r;
+                    this.dx *= -1;
                 }
-                if(this.y >= innerHeight + 0.5*r ) {
-                    if(this.dy >=0) {
-                        this.dy = this.dy * -1;
-                    }
+                if(this.y > innerHeight + 2*r) {
+                    this.y = innerHeight - r;
+                    this.dy *= -1;
                 }
-                else if(this.y <= -0.5*r ) {
-                    if(this.dy <=0) {
-                        this.dy = this.dy * -1;
-                    }
+                else if(this.y < -r) {
+                    this.y = r;
+                    this.dy *= -1;
                 }
 
                 if (quad == 0) {
