@@ -45,7 +45,7 @@
         let farDist = 120;
         let speedFactor = 0.6;
 
-        let repelRadius = window.innerWidth / 7;
+        let repelRadius = window.innerWidth / 8;
 
         function Circle(x, y, r, dx, dy, quad) {
             this.x = x;
@@ -168,6 +168,10 @@
                 dotArray[i].update();
             }
             repel(dotArray,mouse.x, mouse.y);
+            c.beginPath();
+        // c.arc(mouse.x, mouse.y, repelRadius,0,2*Math.PI,false);
+        // c.strokeStyle = '#505050';
+        // c.stroke()
         }
 
         animate();
