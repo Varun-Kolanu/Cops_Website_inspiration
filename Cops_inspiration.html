@@ -15,6 +15,7 @@
 
 <body>
     <canvas></canvas>
+    <button style="position: absolute; z-index: 2; top: 10px; left: 10px; user-select: none;" onclick="clearTheMess()">Clear the mess</button>
     <script>
         let canvas = document.querySelector("canvas");
         let c = canvas.getContext("2d");
@@ -41,7 +42,7 @@
         })
 
         let dotcolor = 'white';
-        let noOfDots = Math.floor(window.innerWidth/10);
+        let noOfDots = Math.floor(window.innerWidth / 10);
         let farDist = 120;
         let speedFactor = 0.6;
 
@@ -65,19 +66,19 @@
 
             this.update = () => {
 
-                if(this.x > innerWidth + 2*r) {
+                if (this.x > innerWidth + 2 * r) {
                     this.x = innerWidth - r;
                     this.dx *= -1;
                 }
-                else if(this.x < -r) {
+                else if (this.x < -r) {
                     this.x = r;
                     this.dx *= -1;
                 }
-                if(this.y > innerHeight + 2*r) {
+                if (this.y > innerHeight + 2 * r) {
                     this.y = innerHeight - r;
                     this.dy *= -1;
                 }
-                else if(this.y < -r) {
+                else if (this.y < -r) {
                     this.y = r;
                     this.dy *= -1;
                 }
@@ -114,32 +115,35 @@
 
         function init() {
             for (let i = 0; i < noOfDots; i++) {
-            let r = radii[i % 3];
-            let x = (Math.random() * (innerWidth - 2 * r) + r);
-            let y = (Math.random() * (innerHeight - 2 * r) + r);
-            let dx = Math.random() * 2;
-            let dy = Math.random() * 2;
-            dotArray.push(new Circle(x, y, r, dx, dy, i % 4));
-        }
+                let r = radii[i % 3];
+                let x = (Math.random() * (innerWidth - 2 * r) + r);
+                let y = (Math.random() * (innerHeight - 2 * r) + r);
+                let dx = Math.random() * 2;
+                let dy = Math.random() * 2;
+                dotArray.push(new Circle(x, y, r, dx, dy, i % 4));
+            }
         }
 
+        function clearTheMess() {
+            dotArray = [];
+            init();
+        }
         function repel(arr, mousex, mousey) {
-            for(let i=0; i < arr.length; i++){
+            for (let i = 0; i < arr.length; i++) {
                 let dist = Math.sqrt((arr[i].x - mousex) * (arr[i].x - mousex) + (arr[i].y - mousey) * (arr[i].y - mousey));
-                if(dist < repelRadius) {
-                    arr[i].y = mousey + (repelRadius*(arr[i].y-mousey))/dist;
-                    arr[i].x = mousex + (repelRadius*(arr[i].x-mousex))/dist;
+                if (dist < repelRadius) {
+                    arr[i].y = mousey + (repelRadius * (arr[i].y - mousey)) / dist;
+                    arr[i].x = mousex + (repelRadius * (arr[i].x - mousex)) / dist;
                 }
             };
         }
-        window.addEventListener("click" , (event) => {
-            let r = radii[Math.floor(Math.random()*3)]
+        window.addEventListener("click", (event) => {
+            let r = radii[Math.floor(Math.random() * 3)]
             let dx = Math.random() * 2;
             let dy = Math.random() * 2;
-            dotArray.push(new Circle(event.x, event.y, r, dx, dy, 1 + Math.floor(Math.random()*4)));
-            dotArray.push(new Circle(event.x, event.y, r, dx, dy, 1 + Math.floor(Math.random()*4)));
-            dotArray.push(new Circle(event.x, event.y, r, dx, dy, 1 + Math.floor(Math.random()*4)));
-            noOfDots += 3;
+            dotArray.push(new Circle(event.x, event.y, r, dx, dy, 1 + Math.floor(Math.random() * 4)));
+            dotArray.push(new Circle(event.x, event.y, r, dx, dy, 1 + Math.floor(Math.random() * 4)));
+            dotArray.push(new Circle(event.x, event.y, r, dx, dy, 1 + Math.floor(Math.random() * 4)));
         })
 
         function join(arr) {
@@ -147,7 +151,7 @@
                 for (let j = 0; j < arr.length; j++) {
                     let dist = Math.sqrt((arr[i].x - arr[j].x) * (arr[i].x - arr[j].x) + (arr[i].y - arr[j].y) * (arr[i].y - arr[j].y))
                     if (dist <= farDist) {
-                        let num = Math.floor(90 - dist/2 );
+                        let num = Math.floor(90 - dist / 2);
                         let rep = num.toString();
                         c.strokeStyle = `rgb(${rep},${rep},${rep})`;
                         c.beginPath();
@@ -167,11 +171,11 @@
             for (let i = 0; i < dotArray.length; i++) {
                 dotArray[i].update();
             }
-            repel(dotArray,mouse.x, mouse.y);
-            c.beginPath();
-        // c.arc(mouse.x, mouse.y, repelRadius,0,2*Math.PI,false);
-        // c.strokeStyle = '#505050';
-        // c.stroke()
+            repel(dotArray, mouse.x, mouse.y);
+            // c.beginPath();
+            // c.arc(mouse.x, mouse.y, repelRadius,0,2*Math.PI,false);
+            // c.strokeStyle = '#505050';
+            // c.stroke()
         }
 
         animate();
